@@ -19,11 +19,14 @@ var (
 	server         *gin.Engine
 	us             services.UserService
 	uc             controllers.UserController
+	ms             services.ModService
+	mc             controllers.ModController
 	is             services.ItemService
 	ic             controllers.ItemController
 	ctx            context.Context
 	userCollection *mongo.Collection
 	itemCollection *mongo.Collection
+	modCollection  *mongo.Collection
 	mongoclient    *mongo.Client
 	err            error
 )
@@ -65,12 +68,15 @@ func main() {
 
 	userCollection = mongoclient.Database("invsee").Collection("User")
 	itemCollection = mongoclient.Database("invsee").Collection("Item")
+	modCollection = mongoclient.Database("invsee").Collection("Mod")
 
 	us = handlers.NewUserService(userCollection, ctx)
 	is = handlers.NewItemService(itemCollection, ctx)
+	ms = handlers.NewModService(modCollection, ctx)
 
 	uc = controllers.NewUserController(us)
 	ic = controllers.NewItemController(is)
+	mc = controllers.NewModController(ms)
 
 	server := gin.New()
 
@@ -94,9 +100,10 @@ func main() {
 	privatePath.Use(helpers.AuthMiddleware())
 
 	// register routes
-	ic.RegisterItemRoutes(basepath) // ITEM
-
+	ic.RegisterItemRoutes(basepath)                     // ITEM
+	mc.RegisterRoutes(basepath, privatePath, adminPath) // MOD
 	uc.RegisterRoutes(basepath, privatePath, adminPath) // USER
+
 	defer mongoclient.Disconnect(ctx)
 	if err := server.Run(":9090"); err != nil {
 		log.Fatalf("Failed to run server: %s", err)
