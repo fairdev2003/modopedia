@@ -30,8 +30,7 @@ export default function PaginationComponent({
   useEffect(
     function () {
       if (searchParams.has("section")) {
-        setSection(searchParams.get("section"));        
-
+        setSection(searchParams.get("section"));
       } else {
         setSection("overview");
       }
@@ -40,17 +39,18 @@ export default function PaginationComponent({
         setPage(parseInt(searchParams.get("page")));
       }
     },
-    [searchParams]
+    [searchParams],
   );
 
   return (
     <div>
       <Pagination className={cn(className)}>
-        
         <PaginationContent>
           <button
             onClick={() => {
-              router.push(`?section=${section}&page=${page - 1 !== 0 ? page - 1 : getPageCount(items)}`);
+              router.push(
+                `?section=${section}&page=${page - 1 !== 0 ? page - 1 : getPageCount(items)}`,
+              );
             }}
             className={cn(
               "w-8 h-8 flex justify-center items-center rounded-md bg-[#2d2d2d] text-white",
@@ -58,27 +58,26 @@ export default function PaginationComponent({
           >
             {"<"}
           </button>
-          {Array.from(Array(getPageCount(items)).keys())
-            .map((item, index) => {
-              return (
-                <button
-                  key={index}
-                  onClick={() => {
-                    router.push(`?section=${section}&page=${index + 1}`);
-                  }}
-                  className={cn(
-                    "w-8 h-8 flex justify-center items-center rounded-md",
-                    page === index + 1
-                      ? "bg-[#3c3c3c] text-white"
-                      : "bg-[#2d2d2d] text-white"
-                  )}
-                >
-                  {index + 1}
-                </button>
-              );
-            })}
-        
-          <PaginationItem className="cursor-pointer" >
+          {Array.from(Array(getPageCount(items)).keys()).map((item, index) => {
+            return (
+              <button
+                key={index}
+                onClick={() => {
+                  router.push(`?section=${section}&page=${index + 1}`);
+                }}
+                className={cn(
+                  "w-8 h-8 flex justify-center items-center rounded-md",
+                  page === index + 1
+                    ? "bg-[#3c3c3c] text-white"
+                    : "bg-[#2d2d2d] text-white",
+                )}
+              >
+                {index + 1}
+              </button>
+            );
+          })}
+
+          <PaginationItem className="cursor-pointer">
             <PaginationLink
               onClick={() => {
                 if (page < getPageCount(items)) {
@@ -91,7 +90,7 @@ export default function PaginationComponent({
                 "w-8 h-8 flex justify-center items-center rounded-md",
                 page === getPageCount(items)
                   ? "bg-[#3c3c3c] text-white"
-                  : "bg-[#2d2d2d] text-white"
+                  : "bg-[#2d2d2d] text-white",
               )}
             >
               {">"}

@@ -1,13 +1,16 @@
-import {QueryClient, QueryClientProvider, useMutation} from "@tanstack/react-query";
-import {ReactNode} from "react";
+'use client'
 
-const ApiProvider = ({ children }: {children: ReactNode}) => {
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactNode } from 'react'
+
+const ApiProvider = ({ children }: { children: ReactNode }) => {
     const queryClient = new QueryClient()
-
     return (
-        <QueryClientProvider client={queryClient}>
-            { children }
-        </QueryClientProvider>
+        <div>
+            <QueryClientProvider client={queryClient}>
+                {children}
+            </QueryClientProvider>
+        </div>
     )
 }
 

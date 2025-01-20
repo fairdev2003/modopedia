@@ -3,13 +3,13 @@ import { Mod } from "@prisma/client";
 type WorkspaceActions = {
   setItemWorkspaceState: <WorkspaceKey extends keyof ItemWorkspaceProps>(
     key: WorkspaceKey,
-    value: ItemWorkspaceProps[WorkspaceKey]
+    value: ItemWorkspaceProps[WorkspaceKey],
   ) => void;
   setpage: (data: number | string) => void;
   setErrorExplaination: (message: string, description: string) => void;
   setErrorState: (data: boolean) => void;
   addNewWikiElement: (wikiElement: WikiElement) => void;
-  editWikiElement: (index: number, wikiElement: any ) => void;
+  editWikiElement: (index: number, wikiElement: any) => void;
   deleteWikiElement: (index: number) => void;
 };
 

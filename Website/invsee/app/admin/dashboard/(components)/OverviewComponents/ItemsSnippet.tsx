@@ -27,12 +27,9 @@ const ItemsSnippet = ({ items }: { items: any }) => {
       className={cn(
         items.isLoading
           ? `bg-slate-500/20 blur-lg cursor-pointer text-white p-5 rounded-xl`
-          : `bg-slate-500/20 cursor-pointer text-white p-5 rounded-xl`
+          : `bg-slate-500/20 cursor-pointer text-white p-5 rounded-xl`,
       )}
     >
-          
-
-
       <div className="flex flex-col justify-start gap-3">
         <div className="flex gap-2 items-center">
           <h1 className="font-bold text-2xl">Items</h1>
@@ -70,7 +67,7 @@ const ItemRecord = ({
   image,
   item_tag,
   item_name,
-  children
+  children,
 }: Pick<Item, "item_tag" | "item_name"> & {
   children?: ReactNode;
 } & { mod: Mod; image: string; children?: ReactNode }) => {

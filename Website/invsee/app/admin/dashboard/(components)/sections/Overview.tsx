@@ -13,25 +13,20 @@ const Overview = () => {
   const mods = trpc.mods.getFirstThreeMods.useQuery();
   const items = trpc.items.getFirstThreeItems.useQuery();
 
-  
-
-
   return (
     <div>
       {account_data[0] && account_data.length > 0 ? (
-        <h1
-          className="text-xl text-white font-bold"
-        >
+        <h1 className="text-xl text-white font-bold">
           Hello {account_data[0].nick} 👋
         </h1>
       ) : null}
       <div className="grid grid-cols-3 gap-x-4 mt-8">
         <UsersSnippet users={users} />
-        <ModsSnippet mods={mods}/>
-        <ItemsSnippet items={items}/>
+        <ModsSnippet mods={mods} />
+        <ItemsSnippet items={items} />
       </div>
     </div>
-);
+  );
 };
 
 export default Overview;

@@ -53,7 +53,9 @@ const WorkspaceTab = ({ name, active }: WorkspaceTabProps) => {
   return (
     <button
       className={`min-w-[100px] truncate p-2 h-[30px] ${
-        active ? "bg-blue-600 hover:bg-blue-500 text-blue" : "bg-white text-black hover:bg-gray-200"
+        active
+          ? "bg-blue-600 hover:bg-blue-500 text-blue"
+          : "bg-white text-black hover:bg-gray-200"
       }  cursor-pointer rounded-md transition-colors  gap-4 flex flex-col justify-center items-center`}
     >
       <h1 className="font-mono text-lg">{name}</h1>

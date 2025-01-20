@@ -20,16 +20,23 @@ const Error = ({ message, description }: ErrorProps) => {
         setErrorState(false);
       }}
     >
-      <motion.div initial={{scale: 0}} animate={{scale: 1}} className="text-white bg-gray-800 p-10 rounded-lg flex flex-col justify-center">
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        className="text-white bg-gray-800 p-10 rounded-lg flex flex-col justify-center"
+      >
         <div className="flex justify-center items-center flex-col gap-2">
-            <CgDanger size={50}/>
-            <h1 className="text-2xl font-semibold">{message}</h1>
-            <p className="text-md text-center font-normal">{description}</p>
+          <CgDanger size={50} />
+          <h1 className="text-2xl font-semibold">{message}</h1>
+          <p className="text-md text-center font-normal">{description}</p>
         </div>
 
-        <button onClick={() => {
+        <button
+          onClick={() => {
             setErrorState(false);
-        }} className="bg-blue-600 text-white hover:text-black transition-colors hover:bg-white mt-3 h-[50px] rounded-xl">
+          }}
+          className="bg-blue-600 text-white hover:text-black transition-colors hover:bg-white mt-3 h-[50px] rounded-xl"
+        >
           Understand
         </button>
       </motion.div>

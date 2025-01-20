@@ -5,7 +5,6 @@ import { db } from "@/prisma/prisma";
 import { User } from "@prisma/client";
 
 export const userRouter = router({
-
   getUsersByEmail: publicProcedure
     .input(z.string().includes("@"))
     .mutation(async (e) => {
@@ -20,17 +19,16 @@ export const userRouter = router({
       return data;
     }),
 
+  checkIfUserExists: publicProcedure
+    .input(z.string())
+    .mutation(async (email) => {
+      const { input } = email;
 
-    checkIfUserExists: publicProcedure.input(z.string()).mutation(async (email) => {
-        const { input  } = email;
-
-        const user = await db.user.findFirst({
-            where: {
-                email: input,
-            },
-        });
-
-
+      const user = await db.user.findFirst({
+        where: {
+          email: input,
+        },
+      });
     }),
 
   getUserByEmail: publicProcedure.input(z.string()).mutation(async (e) => {
@@ -48,30 +46,32 @@ export const userRouter = router({
     return data;
   }),
 
-  getSingleUser: protectedProcedure.input(z.string()).mutation(async (email) => {
-    const { input } = email;
+  getSingleUser: protectedProcedure
+    .input(z.string())
+    .mutation(async (email) => {
+      const { input } = email;
 
-    const data = await db.user.findFirst({
-      where: {
-        email: input,
-      },
+      const data = await db.user.findFirst({
+        where: {
+          email: input,
+        },
 
-      select: {
-        id: true,
-        email: true,
-        password: false,
-        nick: true,
-        firstName: true,
-        lastName: true,
-        role: true,
-        image: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+        select: {
+          id: true,
+          email: true,
+          password: false,
+          nick: true,
+          firstName: true,
+          lastName: true,
+          role: true,
+          image: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      });
 
-    return data;
-  }),
+      return data;
+    }),
 
   updateUserRole: publicProcedure
     .input(z.object({ email: z.string(), role: z.string() }))
@@ -97,7 +97,7 @@ export const userRouter = router({
           nick: z.string(),
           role: z.string(),
         }),
-      })
+      }),
     )
     .mutation(async (input) => {
       const client = await connectMongo();
@@ -116,29 +116,26 @@ export const userRouter = router({
 
   getFirstThreeUsers: publicProcedure.query(async () => {
     const users = await db.user.findMany({
-    take: 3
-    })
+      take: 3,
+    });
     return users;
   }),
 
+  checkIfUserExists: publicProcedure
+    .input(z.string())
+    .mutation(async (email) => {
+      const { input } = email;
 
-  checkIfUserExists: publicProcedure.input(z.string()).mutation(async (email) => {
-    const { input  } = email;
-
-    const user = await db.user.findFirst({
-      where: {
-        email: input,
-      },
-    });
-
-    
-  }),
+      const user = await db.user.findFirst({
+        where: {
+          email: input,
+        },
+      });
+    }),
 
   login: publicProcedure
     .input(z.object({ emailInput: z.string(), passwordInput: z.string() }))
     .mutation(async ({ input }) => {
-
-  
       const { emailInput, passwordInput } = input;
       console.log("Input", input);
       if (emailInput.length === 0 || input.passwordInput.length === 0) {
@@ -147,8 +144,6 @@ export const userRouter = router({
           error_code: 400,
         };
       }
-
-      
 
       if (emailInput.includes("@") === false) {
         return {
@@ -162,18 +157,16 @@ export const userRouter = router({
         const returnData = {
           error: "Password should be at least 8 characters long.",
           error_code: 400,
-        }
+        };
         console.log("Return data", returnData);
         return returnData;
       }
       const user = await db.user.findFirst({
         where: {
-            email: emailInput,
-            password: passwordInput,
+          email: emailInput,
+          password: passwordInput,
         },
       });
-
-
 
       if (!user?.id) {
         const returnData = {
@@ -198,7 +191,6 @@ export const userRouter = router({
 });
 
 class LoginLogic {
-
   private checkemail(email: string) {
     if (email.length === 0 || email.includes("@") === false) {
       return {
@@ -209,13 +201,12 @@ class LoginLogic {
   }
 
   public async logIn(email: string, password: string) {
-
     this.checkemail(email);
 
     const user = await db.user.findFirst({
       where: {
-          email: email,
-          password: password,
+        email: email,
+        password: password,
       },
     });
 
@@ -235,6 +226,4 @@ class LoginLogic {
       user: protectedUser,
     };
   }
-  
-
 }

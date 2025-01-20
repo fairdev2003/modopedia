@@ -3,10 +3,12 @@ import mongoose from "mongoose";
 const DATABASE_URL = process.env.DATABASE_URL as string;
 
 if (!DATABASE_URL) {
-  throw new Error("Please define the DATABASE_URL environment variable inside .env.local");
+  throw new Error(
+    "Please define the DATABASE_URL environment variable inside .env.local",
+  );
 }
 
-let cached: any = global.mongoose
+let cached: any = global.mongoose;
 
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
@@ -22,9 +24,11 @@ async function connectDB() {
       bufferCommands: false,
     };
 
-    cached.promise = await mongoose.connect(DATABASE_URL, opts).then((mongoose) => {
-      return mongoose;
-    });
+    cached.promise = await mongoose
+      .connect(DATABASE_URL, opts)
+      .then((mongoose) => {
+        return mongoose;
+      });
   }
   cached.conn = await cached.promise;
   return cached.conn;

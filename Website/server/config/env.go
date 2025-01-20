@@ -15,15 +15,15 @@ var Envs = initConfig()
 
 func initConfig() *Config {
 	return &Config{
-		DatabaseURI:      getEnv("DATABASE_URI", ""),
-		SuperSecretToken: getEnv("SUPER_SECRET_TOKEN", ""),
+		DatabaseURI:      getEnv("DATABASE_URI", "localhost"),
+		SuperSecretToken: getEnv("SUPER_SECRET_TOKEN", "localhost"),
 	}
 }
 
 func getEnv(key string, fallback string) string {
 	err := godotenv.Load()
 	if err != nil {
-		log.Printf("Błąd podczas ładowania pliku .env: %v", err)
+		log.Printf("Error during .env file load. Please try again laser ERROR_REASON: %v", err)
 		return fallback
 	}
 	if len(os.Getenv(key)) == 0 {

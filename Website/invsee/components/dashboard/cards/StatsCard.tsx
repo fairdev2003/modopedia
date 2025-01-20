@@ -12,7 +12,7 @@ import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
 Chart.register(CategoryScale);
 
-import { Cloudinary } from '@cloudinary/url-gen';
+import { Cloudinary } from "@cloudinary/url-gen";
 
 const roles_with_access = ["Admin"];
 
@@ -30,13 +30,15 @@ const StatsCard = () => {
     translations[language]["Dashboard"]["Added Chart"]["Saturday"];
   const sunday = translations[language]["Dashboard"]["Added Chart"]["Sunday"];
 
-  const modders = translations[language]["Dashboard"]["Added Chart"]["Modders added"];
-  const items = translations[language]["Dashboard"]["Added Chart"]["Items added"];
+  const modders =
+    translations[language]["Dashboard"]["Added Chart"]["Modders added"];
+  const items =
+    translations[language]["Dashboard"]["Added Chart"]["Items added"];
   const tags = translations[language]["Dashboard"]["Added Chart"]["Tags added"];
   const mods = translations[language]["Dashboard"]["Added Chart"]["Mods added"];
 
-  const cld = new Cloudinary({cloud: {cloudName: 'dzaslaxhw'}});
-  const it = cld.image('sample')
+  const cld = new Cloudinary({ cloud: { cloudName: "dzaslaxhw" } });
+  const it = cld.image("sample");
 
   return (
     <Card className="border-[2px] border-gray-900/50 rounded-md text-white pt-5 col-span-2 lg:w-auto md:w-full h-[270px]">

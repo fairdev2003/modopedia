@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 export const ItemTagError = (tag: string) => {
   return {
@@ -6,7 +6,7 @@ export const ItemTagError = (tag: string) => {
     message: "Item Tag Error",
     description: `The item tag ${tag} already exists`,
   };
-}
+};
 
 export const ItemNameError = (name: string) => {
   return {
@@ -14,5 +14,4 @@ export const ItemNameError = (name: string) => {
     message: "Item Name Error",
     description: `The item name ${name} already exists`,
   };
-}
-
+};

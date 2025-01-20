@@ -31,7 +31,7 @@ export default function Navbar() {
   const fetch_user = async () => {
     try {
       const response = await axios.get(
-        `/api/user?search_by=email&name=${token?.user?.email}`
+        `/api/user?search_by=email&name=${token?.user?.email}`,
       );
       const data = response.data;
       setAccountData(data);
@@ -83,7 +83,9 @@ export default function Navbar() {
       ) : (
         <div className="w-[2000px] flex items-center justify-between gap-x-3">
           <h1 className="text-white text-lg font-[600]">
-            <Link href="/dashboard">{translations[language]["Dashboard"]["Dashboard"]}</Link>
+            <Link href="/dashboard">
+              {translations[language]["Dashboard"]["Dashboard"]}
+            </Link>
           </h1>
 
           <Link
@@ -108,54 +110,74 @@ export default function Navbar() {
       )}
 
       <div className="flex items-center gap-x-4">
-        <Select >
+        <Select>
           <SelectTrigger className="w-[50px] h-[35px]">
-            <Button variant='outline' className="p-3 w-[50px] h-[35px]">
+            <Button variant="outline" className="p-3 w-[50px] h-[35px]">
               <button>
-                {language === "en" ? <p className='mx-3'>{translations[language]["Dashboard"]["English"]}</p> : null}
-                {language === "es" ? <p className='mx-3'>{translations[language]["Dashboard"]["Spanish"]}</p> : null}
-                {language === "pl" ? <p className='mx-3'>{translations[language]["Dashboard"]["Polish"]}</p> : null}
+                {language === "en" ? (
+                  <p className="mx-3">
+                    {translations[language]["Dashboard"]["English"]}
+                  </p>
+                ) : null}
+                {language === "es" ? (
+                  <p className="mx-3">
+                    {translations[language]["Dashboard"]["Spanish"]}
+                  </p>
+                ) : null}
+                {language === "pl" ? (
+                  <p className="mx-3">
+                    {translations[language]["Dashboard"]["Polish"]}
+                  </p>
+                ) : null}
               </button>
             </Button>
           </SelectTrigger>
           <SelectContent className="bg-black text-white border-none">
-              <Button
-                onClick={() => {setLanguage("en")}}
-                variant='outline'
-                className="w-full bg-none h-[35px] flex justify-start"
-              >
-                <p>{translations[language]["Dashboard"]["English"]}</p>
-              </Button>
-              <Button
-                onClick={() => {setLanguage("pl")}}
-                variant='outline'
-                className="w-full bg-none h-[35px] flex justify-start"
-              >
-                <p>{translations[language]["Dashboard"]["Polish"]}</p>
-              </Button>
-              <Button
-                onClick={() => {setLanguage("es")}}
-                variant='outline'
-                className="w-full bg-none h-[35px] flex justify-start"
-              >
-                <p>{translations[language]["Dashboard"]["Spanish"]}</p>
-              </Button>
+            <Button
+              onClick={() => {
+                setLanguage("en");
+              }}
+              variant="outline"
+              className="w-full bg-none h-[35px] flex justify-start"
+            >
+              <p>{translations[language]["Dashboard"]["English"]}</p>
+            </Button>
+            <Button
+              onClick={() => {
+                setLanguage("pl");
+              }}
+              variant="outline"
+              className="w-full bg-none h-[35px] flex justify-start"
+            >
+              <p>{translations[language]["Dashboard"]["Polish"]}</p>
+            </Button>
+            <Button
+              onClick={() => {
+                setLanguage("es");
+              }}
+              variant="outline"
+              className="w-full bg-none h-[35px] flex justify-start"
+            >
+              <p>{translations[language]["Dashboard"]["Spanish"]}</p>
+            </Button>
           </SelectContent>
         </Select>
         {account_data && account_data.length > 0 ? (
-          <Popover >
+          <Popover>
             <PopoverTrigger>
               <Avatar>
                 <AvatarImage
-                  src={account_data[0]?.image_src || "https://res.cloudinary.com/dzaslaxhw/image/upload/v1709757036/users/deafult.avif"}
+                  src={
+                    account_data[0]?.image_src ||
+                    "https://res.cloudinary.com/dzaslaxhw/image/upload/v1709757036/users/deafult.avif"
+                  }
                   alt="@avatar"
                 />
-                
               </Avatar>
             </PopoverTrigger>
             <PopoverContent className="bg-black text-white w-auto border-[1px] border-gray-800 p-1">
               <p className="mx-2 my-1 text-[15px] flex gap-x-2 items-center font-medium">
-              {account_data.length > 0 &&
+                {account_data.length > 0 &&
                 account_data[0].role === "Editor" ? (
                   <Hammer size={15} className="text-orange-400" />
                 ) : null}

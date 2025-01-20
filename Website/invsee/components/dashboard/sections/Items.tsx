@@ -26,8 +26,7 @@ import { AddItemModal } from "../Modal";
 
 const handleDeafultImage = (e: any) => {
   e.target.src = "deafult.png";
-  
-}
+};
 
 export default function Items() {
   const [items, setItems] = useState<any>([]);
@@ -40,8 +39,6 @@ export default function Items() {
 
   const pagination_items = 5;
 
-  
-
   const searchParams = useSearchParams() as any;
 
   const [nameRef, mod_tagRef, descriptionRef, searchRef] = [
@@ -52,12 +49,10 @@ export default function Items() {
   ];
 
   const handleDeleteItem = async (item_tag: string) => {
-    const response = await axios.delete(`/api/items?item_tag=${item_tag}`)
+    const response = await axios.delete(`/api/items?item_tag=${item_tag}`);
 
-    console.log("Successfully deleted" + response)
-
-    
-  }
+    console.log("Successfully deleted" + response);
+  };
 
   const [key, setKey] = useState(0);
 
@@ -91,7 +86,7 @@ export default function Items() {
   const Paginate = (
     items: any,
     page: number = 1,
-    per_page: number = pagination_items
+    per_page: number = pagination_items,
   ) => {
     const offset = (page - 1) * per_page;
     const paginatedItems = items.slice(offset).slice(0, per_page);
@@ -155,13 +150,19 @@ export default function Items() {
           {loading === false ? (
             Paginate(items, page).map((item: any, number: number) => {
               return (
-                <div className="flex gap-5 justify-between items-center bg-gray-900/80 rounded-md p-5" key={item.tag_name}>
+                <div
+                  className="flex gap-5 justify-between items-center bg-gray-900/80 rounded-md p-5"
+                  key={item.tag_name}
+                >
                   <div className="flex gap-5 items-center">
                     <Image
-
-                      src={item.tag_name !== "minecraft__air" ? `/mc_assets/${item.tag_name.split("__")[0]}/${
-                        item.tag_name
-                      }.png` : "/deafult.png"}
+                      src={
+                        item.tag_name !== "minecraft__air"
+                          ? `/mc_assets/${item.tag_name.split("__")[0]}/${
+                              item.tag_name
+                            }.png`
+                          : "/deafult.png"
+                      }
                       alt="item_image"
                       className="w-10 h-10"
                       width={50}
@@ -279,15 +280,14 @@ export default function Items() {
                                     placeholder={item.mod_tag}
                                     onChange={async (e) => {
                                       if (e.currentTarget.value === "") {
-                                        const response: any = await axios.get(
-                                          `/api/mods`
-                                        );
+                                        const response: any =
+                                          await axios.get(`/api/mods`);
 
                                         setMods(response.data);
                                       } else {
                                         const response: any = await axios.post(
                                           `/api/mods/search`,
-                                          { query: e.currentTarget.value }
+                                          { query: e.currentTarget.value },
                                         );
 
                                         setMods(response.data);
@@ -370,7 +370,7 @@ export default function Items() {
 
                               await axios.post(
                                 `/api/items/update/${item.tag_name}`,
-                                data_to_update
+                                data_to_update,
                               );
                               setItems([]);
                               if (searchRef.current?.value) {
@@ -393,10 +393,14 @@ export default function Items() {
                         </button>
                       </DialogTrigger>
 
-                      <DialogContent className=''>
+                      <DialogContent className="">
                         <DialogHeader>Are u sure?</DialogHeader>
 
-                        <DialogClose onClick={() => {handleDeleteItem(item.tag_name)}}>
+                        <DialogClose
+                          onClick={() => {
+                            handleDeleteItem(item.tag_name);
+                          }}
+                        >
                           Delete
                         </DialogClose>
                       </DialogContent>
@@ -419,10 +423,7 @@ export default function Items() {
               )}
             </div>
           )}
-          <PaginationComponent
-            items={items}
-            getPageCount={getPageCount}
-          />
+          <PaginationComponent items={items} getPageCount={getPageCount} />
         </div>
       </div>
     </div>

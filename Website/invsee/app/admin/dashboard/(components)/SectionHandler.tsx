@@ -7,13 +7,12 @@ type SectionHandlerComponentProps = {
 };
 
 const SectionHandler = ({ section }: SectionHandlerComponentProps) => {
-
   useEffect(() => {
     console.log(section);
   });
 
   const dashboardComponent = sectionList.find(
-    (s) => s.name === section
+    (s) => s.name === section,
   )?.component;
 
   return (

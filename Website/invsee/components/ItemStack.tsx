@@ -1,5 +1,3 @@
-
-
 import Image from "next/image";
 import { Tooltip } from "./Tooltip";
 import Link from "next/link";
@@ -10,11 +8,7 @@ interface ItemProps {
   blocked?: boolean;
 }
 
-export const ItemStack = ({
-  itemstack,
-  count,
-  blocked,
-}: ItemProps) => {
+export const ItemStack = ({ itemstack, count, blocked }: ItemProps) => {
   const handleDeafultImage = (event: any) => {
     event.target.src = "deafult.png";
   };

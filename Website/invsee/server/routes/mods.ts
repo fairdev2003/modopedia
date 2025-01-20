@@ -73,7 +73,7 @@ export const modsRouter = router({
       z.object({
         by: ByFilterEnum,
         value: z.any(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       const by = input.by;
@@ -105,7 +105,7 @@ export const modsRouter = router({
       z.object({
         by: ByFilterEnum,
         value: z.any(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       const by = input.by;
@@ -156,7 +156,7 @@ export const modsRouter = router({
         modDescription: z.string(),
         tag: z.string(),
         modloaders: z.array(ModLoadersEnum),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const { image_src, modDescription, modName, modloaders, tag } = input;
@@ -187,7 +187,7 @@ export const modsRouter = router({
           modloaders: z.array(ModLoadersEnum),
         }),
         id: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const { data, id } = input;
@@ -214,7 +214,7 @@ export const modsRouter = router({
     .input(
       z.object({
         id: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const { id } = input;

@@ -1,20 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const useResize = () => {
-
-  const [clickcount, setclickcount] = useState<number>(0)
+  const [clickcount, setclickcount] = useState<number>(0);
 
   function handleUserKeyPress(e: any) {
-    setclickcount(5)
-    console.error(e)
+    setclickcount(5);
+    console.error(e);
   }
 
-
   useEffect(() => {
-    window.addEventListener('keydown', handleUserKeyPress);
-  
+    window.addEventListener("keydown", handleUserKeyPress);
+
     return () => {
-      window.removeEventListener('keydown', handleUserKeyPress);
+      window.removeEventListener("keydown", handleUserKeyPress);
     };
   }, []);
 };

@@ -31,7 +31,22 @@ const ItemRecord = ({ item, index }: ItemRecordProps) => {
         <p className="text-blue-300 text-sm font-semibold">
           {item.mod.modName}
         </p>
-        <p className="mt-1 font-semibold">{item.material_value === 0 ? "" : <span className="text-yellow-500">EMC<span className="text-white">: {new Intl.NumberFormat("de-DE").format(item.material_value).replace(".", ",").replace(".", ",")}</span></span>}</p>
+        <p className="mt-1 font-semibold">
+          {item.material_value === 0 ? (
+            ""
+          ) : (
+            <span className="text-yellow-500">
+              EMC
+              <span className="text-white">
+                :{" "}
+                {new Intl.NumberFormat("de-DE")
+                  .format(item.material_value)
+                  .replace(".", ",")
+                  .replace(".", ",")}
+              </span>
+            </span>
+          )}
+        </p>
       </div>
     </motion.div>
   );

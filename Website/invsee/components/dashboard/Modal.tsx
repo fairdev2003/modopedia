@@ -32,12 +32,19 @@ export const AddItemModal = ({
   ];
 
   const handleAddItem = async () => {
-    if (itemNameRef.current?.value.length === 0 && TagNameRef.current?.value.length === 0 && descriptionRef.current?.value.length === 0) {
-      if (TagNameRef.current?.value.includes(":") === false || TagNameRef.current?.value.includes("__") === false) {
-        setError("Mod Tag should contain a colon and an underscore")
+    if (
+      itemNameRef.current?.value.length === 0 &&
+      TagNameRef.current?.value.length === 0 &&
+      descriptionRef.current?.value.length === 0
+    ) {
+      if (
+        TagNameRef.current?.value.includes(":") === false ||
+        TagNameRef.current?.value.includes("__") === false
+      ) {
+        setError("Mod Tag should contain a colon and an underscore");
         return;
       }
-      setError("All fields are required")
+      setError("All fields are required");
       return;
     } else {
       const item = {

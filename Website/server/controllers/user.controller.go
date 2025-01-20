@@ -6,6 +6,7 @@ import (
 	"github.com/fairdev2003/honego/models"
 	"github.com/fairdev2003/honego/services"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"image/png"
@@ -239,9 +240,67 @@ func (uc *UserController) GetPublicUser(ctx *gin.Context) {
 }
 
 func (uc *UserController) CheckAdmin(ctx *gin.Context) {
+
+	userId := ctx.Query("userId")
+
+	result, err := uc.UserService.GetPublicUser("userId", userId)
+	if err != nil {
+		ctx.JSON(http.StatusBadGateway, gin.H{"code": http.StatusBadGateway, "error": err.Error(), "message": err.Error()})
+
+	}
+	var user models.User
+	bsonBytes, err := bson.Marshal(result)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"code":    http.StatusInternalServerError,
+			"message": "Failed to process user data",
+		})
+		return
+	}
+	err = bson.Unmarshal(bsonBytes, &user)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"code":    http.StatusInternalServerError,
+			"message": "Failed to unmarshal user data",
+		})
+		return
+	}
+
+	var isAdmin bool
+	var isMod bool
+	var isEditor bool
+	var isCreator bool
+
+	if user.Role == "Admin" {
+		isAdmin = true
+		isMod = true
+		isEditor = true
+		isCreator = true
+	}
+	if user.Role == "Editor" {
+		isEditor = true
+		isCreator = false
+		isMod = false
+		isAdmin = false
+	}
+	if user.Role == "Creator" {
+		isCreator = true
+		isMod = false
+		isAdmin = false
+		isEditor = true
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": "You are verified",
+		"options": gin.H{
+			"perms": gin.H{
+				"isEditor":  isEditor,
+				"isCreator": isCreator,
+				"isMod":     isMod,
+				"isAdmin":   isAdmin,
+			},
+		},
 	})
 }
 

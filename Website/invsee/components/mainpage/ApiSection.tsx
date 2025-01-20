@@ -5,12 +5,15 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { vs2015 as style } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { translations } from "@/utils/translations";
 
-import './mainpage_styles.css';
+import "./mainpage_styles.css";
 
 const ApiComponent = () => {
   const { language } = usePersistStore();
   return (
-    <div className="mt-10 flex flex-col items-center justify-center gap-3 md:scale-[75%] lg:scale-100 w-full" id='api_section'>
+    <div
+      className="mt-10 flex flex-col items-center justify-center gap-3 md:scale-[75%] lg:scale-100 w-full"
+      id="api_section"
+    >
       <h1 className="text-4xl font-bold text-blue-500 text-center">
         {translations[language]["Mainpage"]["ApiSection"]["ApiSectionTitle"]}
       </h1>

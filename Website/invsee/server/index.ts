@@ -18,8 +18,8 @@ export const appRouter = router({
     const mods = await db.collection("mods").find().count();
     const crafting = await db.collection("crafting").find().count();
     const music = await db.collection("musicdatas").find().count();
-    const wiki_pages = 134 
-    const tags = 40
+    const wiki_pages = 134;
+    const tags = 40;
     const stats = {
       items,
       users,
@@ -28,33 +28,31 @@ export const appRouter = router({
       wiki_pages,
       tags,
       music,
-      crafting
-    }
+      crafting,
+    };
     console.log("Count", stats);
     return stats;
   }),
-  getTraffic: protectedProcedure
-    .query(async ({ ctx }) => {
-      const data = await db.traffic.findMany({
-        include: {
-          user: true
-        }
-      })
-      return data.slice(data.length - 5, data.length)
+  getTraffic: protectedProcedure.query(async ({ ctx }) => {
+    const data = await db.traffic.findMany({
+      include: {
+        user: true,
+      },
+    });
+    return data.slice(data.length - 5, data.length);
   }),
-  makeFakeTraffic: publicProcedure
-    .query(async ({ctx}) => {
+  makeFakeTraffic: publicProcedure.query(async ({ ctx }) => {
+    const date = new Date().toTimeString();
 
-      const date = new Date().toTimeString()
-      
-      const data = await db.traffic.create({data: {
+    const data = await db.traffic.create({
+      data: {
         code: 501,
         code_message: "SERVER ERROR",
         geo: "Cracov",
         ip: "12.21.21.121",
         createdAt: date,
-      }})
-
+      },
+    });
   }),
   getUsers: publicProcedure.query(async () => {
     const client = await connectMongo();
@@ -70,17 +68,15 @@ export const appRouter = router({
     .input(z.object({ name: z.string(), id: z.number() }))
     .mutation(async (input) => {
       const { name, id } = input.input;
-      console.log(name.substring( 0 , 24 ), id);
+      console.log(name.substring(0, 24), id);
       return input;
     }),
-    
+
   user: userRouter,
   log: logRouter,
   items: itemsRouter,
   mods: modsRouter,
-  search: searchRouter
-  
-   
+  search: searchRouter,
 });
 
 export type AppRouter = typeof appRouter;

@@ -54,7 +54,6 @@ const SectionTile = ({ name, active, onClick }: SectionTileComponentProps) => {
 
   return (
     <motion.div
-    
       initial="initial"
       animate="initial"
       whileHover="visible"

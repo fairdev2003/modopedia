@@ -23,6 +23,6 @@ export const useWorkspaceStore = create<WorkspaceActions & WorkspaceStore>()(
     }),
     {
       name: "workspace-store",
-    }
-  )
+    },
+  ),
 );

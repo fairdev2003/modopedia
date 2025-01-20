@@ -86,9 +86,13 @@ const TrafficCard = () => {
                     <HoverCard>
                       <HoverCardTrigger className="hover:underline">
                         {item.user ? (
-                          <p className="cursor-pointer">{item.user && item.user.nick}</p>
+                          <p className="cursor-pointer">
+                            {item.user && item.user.nick}
+                          </p>
                         ) : (
-                          <p className="cursor-pointer">{!iphidden ? item.ip : "IP HIDDEN"}</p>
+                          <p className="cursor-pointer">
+                            {!iphidden ? item.ip : "IP HIDDEN"}
+                          </p>
                         )}
                         <HoverCardContent className="flex gap-5 items-center border-[2px] border-gray-900 bg-black w-[300px] h-[100px] p-3 rounded-lg">
                           <Image
@@ -96,9 +100,9 @@ const TrafficCard = () => {
                             height={50}
                             className="rounded-full"
                             src={
-                              item.user && item.user.image ||
+                              (item.user && item.user.image) ||
                               "https://res.cloudinary.com/dzaslaxhw/image/upload/v1709757036/users/deafult.avif"
-                                }
+                            }
                             alt={""}
                           />
                           <h1>{item.user ? item.user.nick : null}</h1>

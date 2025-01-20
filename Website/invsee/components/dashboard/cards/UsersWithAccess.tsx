@@ -35,8 +35,7 @@ import { usePersistStore } from "@/stores/persist_store";
 const roles_with_access = ["Admin"];
 
 export const UsersWithAccess = () => {
-
-  const { language } = usePersistStore()
+  const { language } = usePersistStore();
   const { account_data, setUsers, users }: any = useUserStore();
   const [state, setState] = useState<string>("");
   const updateUserRole = trpc.user.updateUserRole.useMutation({
@@ -79,8 +78,8 @@ export const UsersWithAccess = () => {
     setUsers([]);
     fetch_users();
     toast("Changed role to: " + value + " for user.ts with email: " + email, {
-        duration: 5000,
-        closeButton: true
+      duration: 5000,
+      closeButton: true,
     });
 
     setTimeout(() => {
@@ -96,9 +95,11 @@ export const UsersWithAccess = () => {
           className={`border-[2px] border-gray-900/50 rounded-md text-white pt-5 lg:w-auto md:w-full h-auto`}
         >
           <div className="flex justify-between">
-            <CardTitle>{translations[language]["Dashboard"]["Users with access"]}</CardTitle>
+            <CardTitle>
+              {translations[language]["Dashboard"]["Users with access"]}
+            </CardTitle>
             <TooltipProvider>
-              <Tooltip >
+              <Tooltip>
                 <TooltipTrigger>
                   <RefreshCcw
                     className={`w-5 h-5 cursor-pointer  transition-colors hover:text-blue-500 ${
@@ -119,7 +120,7 @@ export const UsersWithAccess = () => {
           </div>
 
           <CardDescription className="mt-1">
-          {translations[language]["Dashboard"]["Users with access desc"]}
+            {translations[language]["Dashboard"]["Users with access desc"]}
           </CardDescription>
           <div className="flex flex-col gap-y-4 mt-4 mb-4">
             {users.length > 0
@@ -131,7 +132,10 @@ export const UsersWithAccess = () => {
                     >
                       <Image
                         alt="profile image"
-                        src={user.image_src || "https://res.cloudinary.com/dzaslaxhw/image/upload/v1709757036/users/deafult.avif"}
+                        src={
+                          user.image_src ||
+                          "https://res.cloudinary.com/dzaslaxhw/image/upload/v1709757036/users/deafult.avif"
+                        }
                         width={100}
                         height={100}
                         className="rounded-lg w-[45px] h-[45px]"
@@ -140,7 +144,9 @@ export const UsersWithAccess = () => {
                         <p className="text-[15px] font-medium flex gap-1">
                           {user.nick}{" "}
                           <span className="text-blue-500 flex">
-                            {account_data[0].nick === user.nick ? <>{translations[language]["Dashboard"]["You"]}</> : null}
+                            {account_data[0].nick === user.nick ? (
+                              <>{translations[language]["Dashboard"]["You"]}</>
+                            ) : null}
                           </span>
                         </p>
                         <p className="text-[13px] opacity-50">{user.email}</p>
@@ -199,7 +205,10 @@ export const UsersWithAccess = () => {
               href="/dashboard?section=allies"
               className="hover:underline hover:text-blue-500"
             >
-              {translations[language]["Dashboard"]["and more"].replace("%s", users?.length - 3 )}
+              {translations[language]["Dashboard"]["and more"].replace(
+                "%s",
+                users?.length - 3,
+              )}
             </Link>
           ) : null}
           {state.length > 0 ? (
@@ -212,14 +221,16 @@ export const UsersWithAccess = () => {
         <CardContent className="border-[2px] border-gray-900/50 rounded-md text-white p-5 w-[500px] h-[390px] mt-5 flex flex-col gap-1 justify-center items-center">
           <div className="flex gap-2 items-center">
             <Lock className="text-red-500" />
-            <h2 className="text-red-500">{translations[language]["Dashboard"]["No permission"]}</h2>
+            <h2 className="text-red-500">
+              {translations[language]["Dashboard"]["No permission"]}
+            </h2>
           </div>
           <h3 className="text-gray-500 mt-1 text-sm text-center">
-          {translations[language]["Dashboard"]["Permission error"]}
+            {translations[language]["Dashboard"]["Permission error"]}
           </h3>
         </CardContent>
       )}
-      <Toaster className="bg-none text-green-500"/>
+      <Toaster className="bg-none text-green-500" />
     </Card>
   );
 };

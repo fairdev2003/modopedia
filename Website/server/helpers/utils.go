@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"github.com/disintegration/imaging"
 	"image"
@@ -30,25 +31,27 @@ func checkImageHeaders(url string) error {
 	}
 	defer resp.Body.Close()
 
-	// Check if the Content-Type is correct
 	fmt.Println("Content-Type:", resp.Header.Get("Content-Type"))
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("failed to fetch image, status code: %d", resp.StatusCode)
 	}
 
-	// Read the first 20 bytes of the image
 	buffer := make([]byte, 20)
 	_, err = resp.Body.Read(buffer)
 	if err != nil {
 		return fmt.Errorf("error reading image data: %w", err)
 	}
 
-	// Print the first 20 bytes to inspect
 	fmt.Printf("First 20 bytes: %x\n", buffer)
 	return nil
 }
 
 func FetchImageFromURL(url string) (image.Image, error) {
+
+	if strings.HasSuffix(url, ".webp") {
+		return nil, errors.New("webp not supported")
+	}
+
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("error fetching image: %w", err)

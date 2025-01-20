@@ -63,5 +63,4 @@ const searchForMods = async (query: string) => {
   };
 };
 
-
 export { searchForItems, searchForMods };

@@ -23,7 +23,6 @@ export const searchRouter = router({
   searchEverything: publicProcedure
     .input(z.string())
     .mutation(async ({ input }) => {
-
       console.profile("api");
 
       if (input.startsWith("@")) {
@@ -32,7 +31,12 @@ export const searchRouter = router({
       if (input.startsWith("#")) {
         return searchItemsWithType(input);
       }
-      if (input.startsWith(">") || input.startsWith("<") || input.startsWith("=") || input.startsWith("emc")) {
+      if (
+        input.startsWith(">") ||
+        input.startsWith("<") ||
+        input.startsWith("=") ||
+        input.startsWith("emc")
+      ) {
         return searchItemWithEMC(input);
       }
 
@@ -43,13 +47,10 @@ export const searchRouter = router({
       const items = await searchForItems(input);
       const mods = await searchForMods(input);
 
-      console.log(items.items); 
+      console.log(items.items);
 
       console.profileEnd();
       return { items: items.items, mods: mods.mods };
-
-
-
     }),
 });
 
@@ -79,7 +80,7 @@ const searchItemWithMod = async (input: string) => {
     items: items,
     mods: [],
     links: websiteroute.filter((item) =>
-      item.name.toLowerCase().includes(input.toLowerCase())
+      item.name.toLowerCase().includes(input.toLowerCase()),
     ),
   };
 };
@@ -108,101 +109,97 @@ const searchItemsWithType = async (input: string) => {
     items: items,
     mods: [],
     links: websiteroute.filter((item) =>
-      item.name.toLowerCase().includes(input.toLowerCase())
+      item.name.toLowerCase().includes(input.toLowerCase()),
     ),
   };
 };
 
 const searchItemWithEMC = async (input: string) => {
-    if (input.startsWith(">")) {
-        const emc = input.slice(1);
-        const items = await db.item.findMany({
-            include: {
-                mod: true,
-            },
-            where: {
-                material_value: {
-                    gt: parseInt(emc),
-                    
-                },
-            },
-            orderBy: {
-                material_value: "asc",
-            }
-        });
+  if (input.startsWith(">")) {
+    const emc = input.slice(1);
+    const items = await db.item.findMany({
+      include: {
+        mod: true,
+      },
+      where: {
+        material_value: {
+          gt: parseInt(emc),
+        },
+      },
+      orderBy: {
+        material_value: "asc",
+      },
+    });
 
-        return {
-            items: items,
-            mods: [],
-            links: [],
-        };
-    }
-    if (input.startsWith("<")) {
-        const emc = input.slice(1);
-        const items = await db.item.findMany({
-            include: {
-                mod: true,
-            },
-            where: {
-                material_value: {
-                    lt: parseInt(emc),
-                    gt: 0,
-                },
+    return {
+      items: items,
+      mods: [],
+      links: [],
+    };
+  }
+  if (input.startsWith("<")) {
+    const emc = input.slice(1);
+    const items = await db.item.findMany({
+      include: {
+        mod: true,
+      },
+      where: {
+        material_value: {
+          lt: parseInt(emc),
+          gt: 0,
+        },
+      },
+      orderBy: {
+        material_value: "desc",
+      },
+    });
 
-            },
-            orderBy: {
-                material_value: "desc",
-            }
-        });
+    return {
+      items: items,
+      mods: [],
+      links: [],
+    };
+  }
+  if (input.startsWith("=")) {
+    const emc = input.slice(1);
+    const items = await db.item.findMany({
+      include: {
+        mod: true,
+      },
+      where: {
+        material_value: parseInt(emc),
+      },
+      orderBy: {
+        material_value: "asc",
+      },
+    });
 
-        return {
-            items: items,
-            mods: [],
-            links: [],
-        };
-    }
-    if (input.startsWith("=")) {
-        const emc = input.slice(1);
-        const items = await db.item.findMany({
-            include: {
-                mod: true,
-            },
-            where: {
-                material_value: parseInt(emc),
-            },
-            orderBy: {
-                material_value: "asc",
-            }
-        }
-    
-    );
+    return {
+      items: items,
+      mods: [],
+      links: [],
+    };
+  }
+  if (input.startsWith("emc")) {
+    const emc = input.slice(3);
+    const items = await db.item.findMany({
+      include: {
+        mod: true,
+      },
+      where: {
+        material_value: {
+          gt: 0,
+        },
+      },
+      orderBy: {
+        material_value: "asc",
+      },
+    });
 
-        return {
-            items: items,
-            mods: [],
-            links: [],
-        };
-    }
-    if (input.startsWith("emc")) {
-        const emc = input.slice(3);
-        const items = await db.item.findMany({
-            include: {
-                mod: true,
-            },
-            where: {
-                material_value: {
-                    gt: 0,
-                },
-            },
-            orderBy: {
-                material_value: "asc",
-            }
-        });
-
-        return {
-            items: items,
-            mods: [],
-            links: [],
-        };
-    }
-}
+    return {
+      items: items,
+      mods: [],
+      links: [],
+    };
+  }
+};

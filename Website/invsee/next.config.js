@@ -3,7 +3,6 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    
     ignoreBuildErrors: true,
   },
   images: {

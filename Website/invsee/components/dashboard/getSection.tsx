@@ -8,22 +8,20 @@ import CraftingSection from "./sections/CraftingSection";
 import Workspace from "./sections/Workspace";
 
 interface SectionProps {
-  section : any
+  section: any;
 }
 
-export default function GetSection({
-  section
-}: SectionProps) {
+export default function GetSection({ section }: SectionProps) {
   return (
     <section>
-      {section === "overview" ? <Overview/> : null}
-      {section === "mods" ? <Mods/> : null}
-      {section === "items" ? <Items/> : null}
-      {section === "tags" ? <Tags/> : null}
-      {section === "allies" ? <Users/> : null}
-      {section === "account-settings" ? <AccountSettings/> : null}
-      {section === "crafting" ? <CraftingSection/> : null}
-      {section === "workspace" ? <Workspace/> : null}
+      {section === "overview" ? <Overview /> : null}
+      {section === "mods" ? <Mods /> : null}
+      {section === "items" ? <Items /> : null}
+      {section === "tags" ? <Tags /> : null}
+      {section === "allies" ? <Users /> : null}
+      {section === "account-settings" ? <AccountSettings /> : null}
+      {section === "crafting" ? <CraftingSection /> : null}
+      {section === "workspace" ? <Workspace /> : null}
     </section>
   );
 }

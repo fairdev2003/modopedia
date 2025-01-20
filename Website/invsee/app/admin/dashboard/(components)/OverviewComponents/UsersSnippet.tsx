@@ -27,7 +27,7 @@ const UsersSnippet = ({ users }: { users: any }) => {
       className={cn(
         users.isLoading
           ? `bg-slate-500/20 blur-lg cursor-pointer text-white p-5 rounded-xl`
-          : `bg-slate-500/20 cursor-pointer text-white p-5 rounded-xl`
+          : `bg-slate-500/20 cursor-pointer text-white p-5 rounded-xl`,
       )}
     >
       <div className="flex flex-col justify-start gap-3">

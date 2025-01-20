@@ -10,10 +10,7 @@ import { modsTRPCType } from "./types/overviewTypes";
 import { UseTRPCQueryResult } from "@trpc/react-query/shared";
 import { TRPCClientError } from "@trpc/client";
 
-const ModsSnippet = ({
-    mods
-} : {mods: any}) => {
-
+const ModsSnippet = ({ mods }: { mods: any }) => {
   const { setSelectedDashboardSection } = useDashboardStore();
 
   const loadingBlur = {
@@ -33,7 +30,7 @@ const ModsSnippet = ({
       className={cn(
         mods.isLoading
           ? `bg-slate-500/20 blur-lg cursor-pointer text-white p-5 rounded-xl`
-          : `bg-slate-500/20 cursor-pointer text-white p-5 rounded-xl`
+          : `bg-slate-500/20 cursor-pointer text-white p-5 rounded-xl`,
       )}
     >
       <div className="flex flex-col justify-start gap-3">

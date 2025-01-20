@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const developmentHostname = "http://localhost:9090/honego/v1"
+const developmentHostname = "http://localhost:9090/honego/v1";
 
 // TODO: LATER
-const productionHostname = ""
+const productionHostname = "";
 
 /**
  * Base URL for the API client.
@@ -12,8 +12,10 @@ const productionHostname = ""
  * Current value: {@link developmentHostname} in development or {@link productionHostname} in production.
  */
 const ApiClient = axios.create({
-
-    baseURL: process.env.NODE_ENV === "development" ? developmentHostname : productionHostname,
-})
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? developmentHostname
+      : productionHostname,
+});
 
 export default ApiClient;

@@ -43,7 +43,7 @@ const SliderImages = [
     src: "https://res.cloudinary.com/dzaslaxhw/image/upload/v1711735276/gallery/me_chest_interface.png",
     title: "Our community",
     description: "We have a great community, join us!",
-  }
+  },
 ];
 
 const Social = () => {
@@ -58,9 +58,9 @@ const Social = () => {
         transition: {
           x: {
             repeat: Infinity,
-            repeatType: 'mirror',
+            repeatType: "mirror",
             duration: 1,
-            ease: 'linear',
+            ease: "linear",
           },
         },
       });
@@ -74,23 +74,30 @@ const Social = () => {
   return (
     <div className="mt-20 justify-center flex flex-col items-center gap-3 bg-blue-700 py-20">
       <h1 className="text-4xl text-white font-[700] ">
-      {translations[language]["Mainpage"]["Social"]["Title"]}
+        {translations[language]["Mainpage"]["Social"]["Title"]}
       </h1>
       <p className="text-white text-center max-w-[600px]">
-      {translations[language]["Mainpage"]["Social"]["Description"]}
+        {translations[language]["Mainpage"]["Social"]["Description"]}
       </p>
       <div className="overflow-hidden whitespace-nowrap w-full mt-10">
-      <motion.div className="flex" animate={controls}>
-        {SliderImages.map((_, index) => (
-          <div
-            key={index}
-            className="w-[400px] flex items-center justify-center mr-2"
-          >
-            <Image key={index} alt={`${index}`} src={SliderImages[index].src} width={400} height={400} className="rounded-xl"/>
-          </div>
-        ))}
-      </motion.div>
-    </div>
+        <motion.div className="flex" animate={controls}>
+          {SliderImages.map((_, index) => (
+            <div
+              key={index}
+              className="w-[400px] flex items-center justify-center mr-2"
+            >
+              <Image
+                key={index}
+                alt={`${index}`}
+                src={SliderImages[index].src}
+                width={400}
+                height={400}
+                className="rounded-xl"
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 };

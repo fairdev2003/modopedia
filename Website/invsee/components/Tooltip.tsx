@@ -11,7 +11,7 @@ export const Tooltip = ({ itemstack, className }: ItemProps) => {
   const infoRef = useRef(null);
 
   const handleMouseEnter = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     const { clientX, clientY } = event;
     setInfoPosition({ top: clientY, left: clientX });

@@ -4,18 +4,16 @@ import ModRecord from "./ModRecord";
 import WorkspaceRecord from "./WorkspaceRecord";
 import LinkRecord from "./LinkRecord";
 import "./externalcss/scrollbar.css";
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 interface SearchResultsProps {
   data: any;
 }
 
 const SearchResults = ({ data }: SearchResultsProps) => {
-
   useEffect(() => {
     console.log("Component mounted");
-
-  })
+  });
 
   return (
     <div
@@ -54,8 +52,6 @@ const SearchResults = ({ data }: SearchResultsProps) => {
           })}
         </AnimatePresence>
       )}
-
-      
     </div>
   );
 };

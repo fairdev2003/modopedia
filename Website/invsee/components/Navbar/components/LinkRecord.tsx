@@ -14,13 +14,9 @@ const LinkRecord = ({ link, index }: LinkRecordProps) => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
       className="bg-gray-700 flex gap-5 m-2 rounded-lg w-[97%] p-4 cursor-pointer"
-      onClick={() => window.location.href = link.url}
+      onClick={() => (window.location.href = link.url)}
     >
-      
-        <p className="text-blue-500 font-semibold">
-          {link.name}
-        </p>
-        
+      <p className="text-blue-500 font-semibold">{link.name}</p>
     </motion.div>
   );
 };

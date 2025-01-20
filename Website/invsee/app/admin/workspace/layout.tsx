@@ -1,28 +1,24 @@
-'use client'
-import Provider from '@/app/_trpc/TRPCProvider'
-import { AuthProvider } from '@/components/AuthProviders'
-import Navbar from '@/components/navbar'
-import type { Metadata } from 'next'
+import NavigationBar from '@/components/Navbar/NavigationBar'
+import Pr from '@/app/_trpc/TRPCProvider'
 import { Poppins } from 'next/font/google'
-import {QueryClient, QueryClientProvider, useQueryClient} from "@tanstack/react-query";
+import { Suspense } from 'react'
+import ApiProvider from '@/api/ApiProvider'
 
-const poppins = Poppins({ weight: ["100" , "200" , "300" , "400" , "500" , "600" , "700" , "800" , "900"], subsets: ["devanagari"], preload: true})
+const poppins = Poppins({
+    weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+    subsets: ['devanagari'],
+    preload: true,
+})
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode
+    children: React.ReactNode
 }) {
-
-    const queryClient = new QueryClient()
-
-  return (
-    <html lang="en">
-      <body className={poppins.className}>
-          <QueryClientProvider client={queryClient}>
-           { children }
-          </QueryClientProvider>
-      </body>
-    </html>
-  )
+    return (
+        <ApiProvider>
+            <NavigationBar />
+            <div className={poppins.className}>{children}</div>
+        </ApiProvider>
+    )
 }

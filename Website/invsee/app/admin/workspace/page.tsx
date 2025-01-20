@@ -1,41 +1,59 @@
-"use client";
+'use client'
 
-import ItemWorkspaceMain from "./(components)/(workspaces)/ItemWorkspace/ItemWorkspaceMain";
-import {useQuery} from "@tanstack/react-query";
-import axios, {AxiosError, AxiosResponse} from "axios";
-import {usePersistStore} from "@/stores/persist_store";
-import {GoodServerResponse} from "@/types";
-import Loading from "@/app/admin/workspace/(components)/Loading";
+import { useEffect, useState } from 'react'
+import { useUserStore } from '@/stores/user_store'
+import Mainpage from '@/app/admin/workspace/(components)/(workspaces)/Mainpage'
+import Loading from '@/app/admin/workspace/(components)/Loading'
+import ApiClient from '@/api/fetchClient'
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { GoodServerResponse, Options } from '@/types/types'
+import Cookies from 'js-cookie'
 
 const Page = () => {
+    const { account_data } = useUserStore()
+    const [permission, setPermission] = useState<boolean | undefined>(false)
 
-    const { token } = usePersistStore()
-
-
-    const { data, isLoading, isError } = useQuery<AxiosResponse<GoodServerResponse>, AxiosError>({
-        queryKey: ["verifyUser"],
-        queryFn: async () => {
-            return await axios.get("http://localhost:9090/honego/v1/admin/user/verify", {
-                headers: {Authorization: `Bearer ${token}`}
-            });
+    const checkAdmin = useMutation<
+        AxiosResponse<GoodServerResponse<Options>>,
+        AxiosError,
+        string
+    >({
+        mutationFn: (userId: string) =>
+            ApiClient.get(`/admin/user/verify?userId=${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('token')}`,
+                },
+            }),
+        onSuccess: (data: AxiosResponse<GoodServerResponse<Options>>) => {
+            const isAdmin = data?.data?.options?.perms?.isAdmin
+            if (typeof isAdmin === 'boolean') {
+                setPermission(isAdmin)
+            } else {
+                console.error(
+                    'Invalid response structure: "isAdmin" is undefined.'
+                )
+            }
         },
-        retry: false,
-        refetchOnWindowFocus: false,
-    });
 
-    if (isLoading) {
-        return <Loading />
-    }
-    if (isError) {
-        return <div className="flex justify-center mt-[150px] text-white">No permissions</div>
-    }
+        onError: (error: AxiosError) => {
+            console.error('Error verifying admin status:', error.message)
+        },
+    })
 
+    useEffect(() => {
+        if (account_data) {
+            checkAdmin.mutate(account_data.userId)
+        }
+    }, [account_data])
 
-  return (
-    <div className="mt-[130px] lg:mx-[15%] mx-[5%] flex flex-col justify-center items-center">
-      <ItemWorkspaceMain/>
-    </div>
-  );
-};
+    return (
+        <div className="lg:mx-[20%] mx-[5%] flex flex-col">
+            {checkAdmin.isError && <div className="text-white">Erorr</div>}
+            {checkAdmin.isLoading && <Loading />}
+            {permission && <Mainpage></Mainpage>}
+        </div>
+    )
+}
 
-export default Page;
+export default Page

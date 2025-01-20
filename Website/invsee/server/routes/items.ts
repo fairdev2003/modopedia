@@ -59,7 +59,7 @@ export const itemsRouter = router({
         tags: z.array(z.string()),
         modId: z.string(),
         short_description: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const data = await db.item.create({
@@ -82,7 +82,7 @@ export const itemsRouter = router({
         type: z.string(),
         modId: z.string(),
         short_description: z.string(),
-      })
+      }),
     )
     .mutation(async (query) => {
       const { input } = query;

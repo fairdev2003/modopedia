@@ -24,6 +24,12 @@
       "@me/*": ["src/me/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "db/dbConnection.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "db/dbConnection.ts"
+  ],
   "exclude": ["node_modules"]
 }

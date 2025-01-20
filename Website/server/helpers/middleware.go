@@ -15,7 +15,7 @@ import (
 )
 
 type Claims struct {
-	Email     string    `json:"email"`
+	UserId    string    `json:"userId"`
 	Role      string    `json:"role"`
 	ExpiresAt time.Time `json:"exp"`
 }
@@ -123,7 +123,8 @@ func GenerateToken(id string, nick string) (string, error) {
 		"exp":    time.Now().Add(time.Hour * 1).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte("mongodb+srv://admin:NKGpsKXllhHGaEIM@spotify-clone.ucfqqik.mongodb.net/?retryWrites=true&w=majority&appName=spotify-clone"))
+	fmt.Println("Config env", config.Envs.SuperSecretToken)
+	return token.SignedString([]byte(config.Envs.SuperSecretToken))
 }
 
 func VerifyAdmin(user services.UserService) gin.HandlerFunc {

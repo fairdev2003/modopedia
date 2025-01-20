@@ -33,7 +33,7 @@ export default function Mods() {
   const Paginate = (
     items: any,
     page: number = 1,
-    per_page: number = pagination_items
+    per_page: number = pagination_items,
   ) => {
     const offset = (page - 1) * per_page;
     const paginatedItems = mod.data?.data.slice(offset).slice(0, per_page);
@@ -97,24 +97,26 @@ export default function Mods() {
         )}
         <Pagination>
           <PaginationContent>
-            {!mod.isLoading ? Array.from({ length: getPageCount(mods) }).map((_, index) => {
-              return (
-                <PaginationItem key={index} className="cursor-pointer ">
-                  <PaginationLink
-                    onClick={() => {
-                      setPage(index + 1);
-                      window.scrollTo({
-                        top: 0,
-                        behavior: "smooth",
-                      });
-                    }}
-                    isActive={index === page - 1}
-                  >
-                    {index + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              );
-            }) : null}
+            {!mod.isLoading
+              ? Array.from({ length: getPageCount(mods) }).map((_, index) => {
+                  return (
+                    <PaginationItem key={index} className="cursor-pointer ">
+                      <PaginationLink
+                        onClick={() => {
+                          setPage(index + 1);
+                          window.scrollTo({
+                            top: 0,
+                            behavior: "smooth",
+                          });
+                        }}
+                        isActive={index === page - 1}
+                      >
+                        {index + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  );
+                })
+              : null}
           </PaginationContent>
         </Pagination>
       </div>
