@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { UserType } from '@/types/types'
 import { protectedContext } from '@/app/admin/components/context/ProtectedContext'
 import { useContext } from 'react'
 import { useUserStore } from '@/stores/user_store'
