@@ -114,14 +114,6 @@ func main() {
 		c.JSON(404, gin.H{"code": 404, "error": "Page not found", "message": "Page not found"})
 	})
 
-	server.LoadHTMLGlob("templates/*")
-	server.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"title":   "Welcome to Gin",
-			"message": "Hello, Gin!",
-		})
-	})
-
 	server.Use(CorsConf("http://localhost:3000"))
 
 	basepath := server.Group("/honego").Group("/v1") // ALL USERS
