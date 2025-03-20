@@ -43,6 +43,17 @@ func (mc *ModController) GetAll(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, mods)
 }
 
+func (mc *ModController) CreateMod(ctx *gin.Context) {
+	var mod *models.Mod
+	if err := ctx.ShouldBindJSON(&mod); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+	}
+	if err := mc.ModService.CreateMod(mod); err != nil {
+		ctx.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
+	}
+	ctx.JSON(http.StatusOK, mod)
+}
+
 func (mc *ModController) RegisterModRoutes(rg *gin.RouterGroup) {
 	modroute := rg.Group("/mod")
 	modroute.GET("/getall", mc.GetAll)

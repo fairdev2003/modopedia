@@ -23,8 +23,8 @@ func NewModService(modCollection *mongo.Collection, ctx context.Context) service
 }
 
 func (m ModServiceImpl) CreateMod(mod *models.Mod) error {
-	//TODO implement me
-	panic("implement me")
+	_, err := m.modCollection.InsertOne(m.ctx, mod)
+	return err
 }
 
 func (m ModServiceImpl) GetMod(query *string) (bson.M, error) {

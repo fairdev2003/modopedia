@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/fairdev2003/honego/services"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
@@ -62,4 +63,17 @@ type Register struct {
 	Nick      string `json:"nick" bson:"nickname,omitempty"`
 	FirstName string `json:"firstName" bson:"firstName,omitempty"`
 	LastName  string `json:"lastName" bson:"lastName,omitempty"`
+}
+
+type Modpack struct {
+	ID          primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
+	ModpackName string             `json:"modpackName" bson:"modpackName,omitempty"`
+}
+
+type ModpackMod struct {
+	ID           primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
+	ModpackModid string             `json:"modpackModid" bson:"modpackModid,omitempty"`
+	ModId        primitive.ObjectID `json:"modId" bson:"modId,omitempty"`
+	UpdatedAt    time.Time          `json:"updatedAt" bson:"updatedAt,omitempty"`
+	CreatedAt    time.Time          `json:"createdAt" bson:"createdAt,omitempty"`
 }
