@@ -114,7 +114,7 @@ func main() {
 		c.JSON(404, gin.H{"code": 404, "error": "Page not found", "message": "Page not found"})
 	})
 
-	server.Use(CorsConf("http://localhost:3000"))
+	server.Use(CorsConf("http://localhost:5173"))
 
 	basepath := server.Group("/honego").Group("/v1") // ALL USERS
 	privatePath := basepath.Group("/private")        // REGISTERED USERS
