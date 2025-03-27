@@ -38,6 +38,12 @@ var (
 	mc            controllers.ModController
 )
 
+var (
+	craftingCollection *mongo.Collection
+	cs                 services.CraftingService
+	cc                 controllers.CraftingController
+)
+
 // general variables
 var (
 	server      *gin.Engine
@@ -99,14 +105,17 @@ func main() {
 	userCollection = mongoClient.Database("invsee").Collection("User")
 	itemCollection = mongoClient.Database("invsee").Collection("Item")
 	modCollection = mongoClient.Database("invsee").Collection("Mod")
+	craftingCollection = mongoClient.Database("invsee").Collection("Crafting")
 
 	us = handlers.NewUserService(userCollection, ctx)
 	is = handlers.NewItemService(itemCollection, ctx)
 	ms = handlers.NewModService(modCollection, ctx)
+	cs = handlers.NewCraftingService(craftingCollection, ctx)
 
 	uc = controllers.NewUserController(us)
 	ic = controllers.NewItemController(is)
 	mc = controllers.NewModController(ms)
+	cc = controllers.NewCraftingController(cs)
 
 	server = gin.New()
 
@@ -133,6 +142,7 @@ func main() {
 	ic.RegisterItemRoutes(basepath)                     // ITEM
 	mc.RegisterRoutes(basepath, privatePath, adminPath) // MOD
 	uc.RegisterRoutes(basepath, privatePath, adminPath) // USER
+	cc.RegisterRoutes(basepath, privatePath, adminPath) // CRAFTING
 
 	defer mongoClient.Disconnect(ctx)
 	if err := server.Run(":9090"); err != nil {

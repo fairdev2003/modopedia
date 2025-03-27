@@ -422,7 +422,6 @@ func (uc *UserController) RegisterAdminRoutes(rg *gin.RouterGroup) {
 	adminUserRoute.PATCH("/update", uc.UpdateUser)
 	adminUserRoute.DELETE("/delete/:nick", uc.DeleteUser)
 	adminUserRoute.GET("/verify", uc.CheckAdmin)
-
 }
 
 func (uc *UserController) RegisterRoutes(normalGroup *gin.RouterGroup, privateGroup *gin.RouterGroup, adminGroup *gin.RouterGroup) {

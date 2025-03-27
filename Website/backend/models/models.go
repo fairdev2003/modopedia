@@ -76,3 +76,15 @@ type ModpackMod struct {
 	UpdatedAt    time.Time          `json:"updatedAt" bson:"updatedAt,omitempty"`
 	CreatedAt    time.Time          `json:"createdAt" bson:"createdAt,omitempty"`
 }
+
+type CraftingResult struct {
+	ItemTag string `json:"itemTag" bson:"itemTag,omitempty"`
+	Count   int    `json:"count" bson:"count,omitempty"`
+}
+
+type Crafting struct {
+	ID           primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
+	CraftingType string             `json:"craftingType" bson:"craftingType,omitempty"` // minecraft:crafting, mekanism:infusing etc
+	ItemTag      string             `json:"itemTag" bson:"itemTag,omitempty"`
+	Result       CraftingResult     `json:"result" bson:"result,omitempty"`
+}
