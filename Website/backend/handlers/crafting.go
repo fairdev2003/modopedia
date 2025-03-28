@@ -26,6 +26,7 @@ func (c *CraftingServiceImpl) DeleteCraftingRecipe(Key string, Value string) err
 		return err
 	}
 
+	return nil
 }
 
 func (c *CraftingServiceImpl) GetAll() ([]*bson.M, error) {

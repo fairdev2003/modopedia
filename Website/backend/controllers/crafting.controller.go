@@ -30,6 +30,19 @@ func (c *CraftingController) GetAll(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, craftingRecipes)
 }
 
+func (c *CraftingController) DeleteCraftingRecipe(ctx *gin.Context) {
+
+	Key := ctx.Param("key")
+	Value := ctx.Param("value")
+
+	err := c.CraftingService.DeleteCraftingRecipe(Key, Value)
+	if err != nil {
+		ctx.JSON(http.StatusBadGateway, gin.H{"message": config.ServerError})
+	}
+	ctx.JSON(http.StatusOK, gin.H{"message": "Crafting Recipe Deleted"})
+
+}
+
 func (c *CraftingController) CreateCraftingRecipe(ctx *gin.Context) {
 	var recipe map[string]interface{}
 
@@ -66,6 +79,7 @@ func (cc *CraftingController) RegisterPrivateUserRoutes(rg *gin.RouterGroup) {
 func (cc *CraftingController) RegisterAdminRoutes(rg *gin.RouterGroup) {
 	adminUserRoute := rg.Group("/crafting")
 	adminUserRoute.POST("/create", cc.CreateCraftingRecipe)
+	adminUserRoute.DELETE("/delete", cc.DeleteCraftingRecipe)
 }
 
 func (cc *CraftingController) RegisterRoutes(normalGroup *gin.RouterGroup, privateGroup *gin.RouterGroup, adminGroup *gin.RouterGroup) {
