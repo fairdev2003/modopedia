@@ -32,3 +32,7 @@ forge*changelog.txt
 /Website/client/.env
 ./Website/invsee/.env
 ./Website/server/.env
+
+# Ensure that Website/frontend is NOT ignored
+!Website/frontend/
+
