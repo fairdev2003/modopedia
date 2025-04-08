@@ -115,11 +115,7 @@ const NavigationBar = () => {
                                         ? account_data.nick
                                         : 'loading...'}
                                 </p>
-                                {/* <p className="mx-2 my-1 text-[12px] truncate text-gray-500">
-                  {account_data.length > 0
-                    ? account_data[0].email
-                    : "loading..."}
-                </p> */}
+                                <div><p></p><p></p></div>
                                 <p className="mx-2 my-1 text-[12px] truncate text-red-500">
                                     {account_data
                                         ? 'EMAIL IS HIDDEN'

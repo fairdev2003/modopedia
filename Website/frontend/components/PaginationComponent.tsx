@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-} from "./ui/pagination";
-import { useRouter, useSearchParams } from "next/navigation";
-import { cn } from "@/lib/utils";
+import React, { useEffect, useState } from 'react';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from './ui/pagination';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface PaginationProps {
   getPageCount: (items: any) => number;
@@ -14,14 +9,10 @@ interface PaginationProps {
   className?: string;
 }
 
-export default function PaginationComponent({
-  getPageCount,
-  items,
-  className,
-}: PaginationProps) {
+export default function PaginationComponent({ getPageCount, items, className }: PaginationProps) {
   const [page, setPage] = useState<number>(1);
 
-  const [section, setSection] = useState<string>("");
+  const [section, setSection] = useState<string>('');
 
   const searchParams = useSearchParams() as any;
 
@@ -29,17 +20,17 @@ export default function PaginationComponent({
 
   useEffect(
     function () {
-      if (searchParams.has("section")) {
-        setSection(searchParams.get("section"));
+      if (searchParams.has('section')) {
+        setSection(searchParams.get('section'));
       } else {
-        setSection("overview");
+        setSection('overview');
       }
 
-      if (searchParams.has("page")) {
-        setPage(parseInt(searchParams.get("page")));
+      if (searchParams.has('page')) {
+        setPage(parseInt(searchParams.get('page')));
       }
     },
-    [searchParams],
+    [searchParams]
   );
 
   return (
@@ -49,14 +40,14 @@ export default function PaginationComponent({
           <button
             onClick={() => {
               router.push(
-                `?section=${section}&page=${page - 1 !== 0 ? page - 1 : getPageCount(items)}`,
+                `?section=${section}&page=${page - 1 !== 0 ? page - 1 : getPageCount(items)}`
               );
             }}
             className={cn(
-              "w-8 h-8 flex justify-center items-center rounded-md bg-[#2d2d2d] text-white",
+              'flex h-8 w-8 items-center justify-center rounded-md bg-[#2d2d2d] text-white'
             )}
           >
-            {"<"}
+            {'<'}
           </button>
           {Array.from(Array(getPageCount(items)).keys()).map((item, index) => {
             return (
@@ -66,10 +57,8 @@ export default function PaginationComponent({
                   router.push(`?section=${section}&page=${index + 1}`);
                 }}
                 className={cn(
-                  "w-8 h-8 flex justify-center items-center rounded-md",
-                  page === index + 1
-                    ? "bg-[#3c3c3c] text-white"
-                    : "bg-[#2d2d2d] text-white",
+                  'flex h-8 w-8 items-center justify-center rounded-md',
+                  page === index + 1 ? 'bg-[#3c3c3c] text-white' : 'bg-[#2d2d2d] text-white'
                 )}
               >
                 {index + 1}
@@ -87,13 +76,11 @@ export default function PaginationComponent({
                 }
               }}
               className={cn(
-                "w-8 h-8 flex justify-center items-center rounded-md",
-                page === getPageCount(items)
-                  ? "bg-[#3c3c3c] text-white"
-                  : "bg-[#2d2d2d] text-white",
+                'flex h-8 w-8 items-center justify-center rounded-md',
+                page === getPageCount(items) ? 'bg-[#3c3c3c] text-white' : 'bg-[#2d2d2d] text-white'
               )}
             >
-              {">"}
+              {'>'}
             </PaginationLink>
           </PaginationItem>
         </PaginationContent>

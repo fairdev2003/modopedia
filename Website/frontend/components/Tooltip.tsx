@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { useState, useRef } from "react";
+import Image from 'next/image';
+import { useState, useRef } from 'react';
 
 interface ItemProps {
   itemstack?: any;
@@ -10,9 +10,7 @@ export const Tooltip = ({ itemstack, className }: ItemProps) => {
   const [infoPosition, setInfoPosition] = useState({ top: 0, left: 0 });
   const infoRef = useRef(null);
 
-  const handleMouseEnter = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => {
+  const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const { clientX, clientY } = event;
     setInfoPosition({ top: clientY, left: clientX });
   };
@@ -29,24 +27,22 @@ export const Tooltip = ({ itemstack, className }: ItemProps) => {
         onMouseLeave={handleMouseLeave}
         className={
           className +
-          ` w-[300px] h-[300px] scale-100 hidden group-hover:block absolute -left-[100px] top-[70px] z-10 transition duration-400 group-hover:translate-y-5 animate-in`
+          ` duration-400 absolute -left-[100px] top-[70px] z-10 hidden h-[300px] w-[300px] scale-100 transition animate-in group-hover:block group-hover:translate-y-5`
         }
       >
-        <div className="w-[auto] h-[auto] bg-[#16181c] border-white border-[3px] p-5 rounded-lg overflow-auto">
-          <div className="flex gap-4 items-center mb-5">
+        <div className="h-[auto] w-[auto] overflow-auto rounded-lg border-[3px] border-white bg-[#16181c] p-5">
+          <div className="mb-5 flex items-center gap-4">
             <Image
               width={30}
               height={30}
-              src={`/mc_assets/${itemstack.item_tag.split("__")[0]}/${itemstack.item_tag}.png`}
+              src={`/mc_assets/${itemstack.item_tag.split('__')[0]}/${itemstack.item_tag}.png`}
               alt="item-icon"
-              className="image w-10 h-10 relative"
+              className="image relative h-10 w-10"
             ></Image>
             <div>
-              <h1 className={`text-md font-[800] text-white`}>
-                {itemstack.item_name}
-              </h1>
-              <p className="text-gray-200 text-sm font-[600]">
-                {itemstack ? itemstack.type : "No type provided"}
+              <h1 className={`text-md font-[800] text-white`}>{itemstack.item_name}</h1>
+              <p className="text-sm font-[600] text-gray-200">
+                {itemstack ? itemstack.type : 'No type provided'}
               </p>
             </div>
           </div>
