@@ -7,7 +7,7 @@ import NavigationBar from '@/components/Navbar/NavigationBar'
 
 const inter = Poppins({
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-    subsets: ['devanagari'],
+    subsets: ['latin'],
     preload: true,
 })
 

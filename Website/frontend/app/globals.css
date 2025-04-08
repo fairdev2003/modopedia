@@ -20,7 +20,6 @@ html {
 }
 
 #explore {
-  background-image: url("../assets/art2.png");
   backdrop-filter: blur(100px);
   background-position: center;
 }
